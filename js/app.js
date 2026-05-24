@@ -1,10 +1,18 @@
 import{Product} from "./entities/Product.js";
 import{Category} from "./entities/Category.js";
-const category = new Category();
-category.generateCategory();
+import {name, isReady,price,description,discount,url} from "./form";
+const category=new Category();
 document.getElementById("addBtn").addEventListener("click", () => {
-  const product = new Product();
-  product.generate();
+  window.location.href="./form.html";
+})
+if (isReady){
+  const product = new Product(name,url,price,discount,description);
   category.addProduct(product);
-});
+  product.generate();
+}
+
+
+
+
+
 

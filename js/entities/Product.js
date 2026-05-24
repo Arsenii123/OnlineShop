@@ -5,14 +5,24 @@ export class Product {
   discount;
   description;
   constructor(name="undefined", image="https://th.bing.com/th/id/OIP.nepaboJStUxL31XKSpKcxQHaHa?w=161&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", price=0, discount=0, description="undefined") {
-    this.name = name;
-    this.image = image;
-    this.price = price;
-    this.discount = discount;
-    this.description = description;
+    this.save(name,price,discount,description,image);
+    this.name=localStorage.getItem("name");
+    this.price=localStorage.getItem("price");
+    this.discount=localStorage.getItem("discount");
+    this.description=localStorage.getItem("description");
+    this.image=localStorage.getItem("image");
+
 
   }
+  save(name, price, discount, description,image) {
+    localStorage.setItem("name", name);
+    localStorage.setItem("price", price);
+    localStorage.setItem("discount", discount);
+    localStorage.setItem("description", description);
+    localStorage.setItem("image", image);
+  }
   generate(){
+
     let products=document.getElementById("products");
     let c = document.createElement("div");
     let p = document.createElement("p");
@@ -54,5 +64,7 @@ export class Product {
     c.appendChild(b);
 
     products.appendChild(c);
+    this.save();
   }
+
 }
