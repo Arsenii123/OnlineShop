@@ -2,22 +2,24 @@ import{Product} from './Product.js';
 export class Category{
   name;
   products=[];
+  isShowing;
   constructor(name="category",...args) {
-    try{
+    this.saveCategory(name, ...args);
+
       for (let i=0; i<args.length; i++){
         this.products.push(args[i]);
       }
       this.name = localStorage.getItem("category_name");
-      const elements=localStorage.getItem("category_products");
-      this.products = JSON.parse(elements) || [];
+      if(args.length > 0){
+        const elements=localStorage.getItem("category_products");
+        this.products = JSON.parse(elements) || [];
+      }
 
 
-    }
-    catch(err){
-      alert("Not Found!");
-    }
 
 
+
+    this.isShowing=false;
 
   }
   clearCategory(){
@@ -36,14 +38,17 @@ export class Category{
 
       }
   }
-  saveCategory() {
-     localStorage.setItem("category_name",this.name);
-     localStorage.setItem("category_products",JSON.stringify(this.products));
+  saveCategory(name,...args) {
+     localStorage.setItem("category_name",name);
+     localStorage.setItem("category_products",JSON.stringify(...args));
+
+
+
   }
   addProduct(product){
     if(product instanceof Product){
       this.products.push(product);
-      this.saveCategory();
+      this.saveCategory(this.name,this.products);
 
     }
 

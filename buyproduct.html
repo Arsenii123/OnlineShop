@@ -2,9 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Title</title>
+  <link rel="stylesheet" href="css/buyproduct.css">
 </head>
 <body>
-$END$
+<main id="title">
+<h1></h1>
+</main>
+<section >
+  <div id="card">
+
+  </div>
+  <div>
+    <form action="" method="post" onsubmit="">
+      <label for="email">Email</label>
+      <input
+             type="email"
+             id="email"
+             name="email"
+             placeholder="Print your email address..."
+             required
+             pattern="^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z]{2,}$"
+             oninput="this.setCustomValidity(this.validity.valid
+             ?''
+             : 'Your email address is required written correctly'
+
+             )" >
+      <label for="password">Password</label>
+      <input
+      type="password"
+      id="password"
+      name="password"
+      placeholder="Enter your password..."
+      required
+      minlength="6"
+      maxlength="25"
+      oninput="this.setCustomValidity(this.validity.valid
+      ? ''
+      : '6-25 characters long')">
+      <label for="adress">Adress</label>
+      <input
+      type="text"
+      id="adress"
+      name="adress"
+      placeholder="Enter your adress..."
+      required
+      >
+      <label for="city">City</label>
+      <input
+      type="text"
+      id="city"
+      name="city"
+      placeholder="Enter your city..."
+      required
+      >
+      <label for="male">Male</label>
+      <input
+        type="radio"
+        id="male"
+        name="state"
+        value="Male"
+      >
+      <label for="female">Women</label>
+      <input
+      type="radio"
+      id="female"
+      name="state"
+      value="Female">
+      <label for="dob">Birthday:</label>
+      <input
+             type="date"
+             id="dob"
+             name="dob"
+             required
+             min="1900-01-01"
+             max="2024-12-31"
+             oninput="this.setCustomValidity(this.validity.valid
+             ? ''
+             : 'You can`t live at this time!'
+             )"
+      >
+      <label for="quantity">Quantity:</label>
+
+      <select id="quantity" name="quantity"  size="1" >
+        <option selected>1</option>
+        <option >2</option>
+        <option >3</option>
+        <option >4</option>
+        <option >5</option>
+        <option >6</option>
+        <option >7</option>
+        <option >8</option>
+        <option >9</option>
+        <option >10</option>
+        <option value=">10">>10</option>
+      </select>
+      <input type="submit" value="Submit">
+      <input type="reset" value="Reset">
+    </form>
+  </div>
+</section>
+<script type="module" src="js/buyproduct.js"></script>
 </body>
 </html>
