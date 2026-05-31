@@ -115,3 +115,41 @@ input[type="reset"] {
 input[type="reset"]:hover {
   background: #9AF8A5;
 }
+
+#toCart {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #45983C, #2E8B2A);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(69, 152, 60, 0.35);
+  transition: all 0.4s ease;
+  margin: 20px auto;
+}
+
+#toCart:hover {
+  transform: translateY(-5px) scale(1.04);
+  box-shadow: 0 15px 30px rgba(69, 152, 60, 0.45);
+  background: linear-gradient(135deg, #2E8B2A, #1F6A1F);
+}
+
+.cart-icon {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease;
+  filter: brightness(1.1);
+}
+
+#toCart:hover .cart-icon {
+  transform: scale(1.15) rotate(12deg);
+}
+
+#toCart-text {
+  letter-spacing: 0.5px;
+}

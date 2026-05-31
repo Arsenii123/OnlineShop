@@ -14,6 +14,7 @@ export class Product {
     this.description = localStorage.getItem("description");
     this.image = localStorage.getItem("image");
     this.isBuying = false;
+    localStorage.setItem("isBuying", this.isBuying);
 
 
   }
@@ -64,7 +65,7 @@ export class Product {
       c.style.marginTop = "5px";
       b.addEventListener("click", () => {
         window.location.href = "./buyproduct.html";
-        this.isBuying = true;
+        this.isVisible();
       });
       c.appendChild(p);
       c.appendChild(img1);
@@ -81,8 +82,8 @@ export class Product {
   }
 
   getInfo() {
-    let product = document.getElementById("card");
-
+    let product = document.getElementsByClassName("card");
+    product[0].innerHTML = "";
     let c = document.createElement("div");
 
     let p = document.getElementsByTagName("h1")[0];
@@ -112,8 +113,20 @@ export class Product {
     c.appendChild(ds);
     c.appendChild(description);
 
-    product.appendChild(c);
+    product[0].appendChild(c);
 
+  }
+  isVisible(){
+    this.isBuying=true;
+    localStorage.setItem("isBuying", this.isBuying);
+  }
+  isSelected(){
+    const a=localStorage.getItem("isBuying");
+    let b=false;
+    if(Boolean(a) === true){
+      b= true;
+    }
+    return b;
   }
 
 }
