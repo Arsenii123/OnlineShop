@@ -33,7 +33,7 @@ main{
 #cart{
   position:absolute;
   top:auto;
-  left:400px;
+  left:800px;
   display: flex;
   flex-direction: row;
   height:50px;
@@ -47,13 +47,13 @@ main{
 }
 .filter{
   position: relative;
-  left:1450px;
+  left:1350px;
   top:-3px;
 }
 #Category{
   position: absolute;
-  left:0px;
   top:0px;
+  left: 0px;
   display:flex;
 }
 h2{
@@ -63,7 +63,7 @@ h2{
 #out{
   width:400px;
   background-color:#62CC6F;
-  height:1000px;
+  height:800px;
   display:flex;
   justify-content: space-around;
 
@@ -131,6 +131,62 @@ footer{
   position:relative;;
   left:50px;
 
+}
+/* Анимация карточек */
+.product-card {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: cardAppear 0.6s forwards;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Появление карточек по очереди */
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
+.product-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* Ключевая анимация появления */
+@keyframes cardAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover анимация */
+.product-card:hover {
+  transform: translateY(-15px) scale(1.04);
+  box-shadow: 0 20px 40px rgba(69, 152, 60, 0.35);
+}
+
+/* Анимация для изображения внутри карточки */
+.product-card img {
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Анимация кнопки "Buy" */
+#add {
+  transition: all 0.3s ease;
+}
+
+#add:hover {
+  transform: scale(1.08);
+  background-color: #2E8B2A;
+}
+
+/* Лёгкая анимация для скидки */
+#offer {
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover #offer {
+  transform: scale(1.15);
 }
 
 

@@ -4,129 +4,141 @@ export class Product {
   price;
   discount;
   description;
-  isBuying;
+  isBuying = false;
+  isSelected = false;
 
-  constructor(name = "undefined", image = "https://th.bing.com/th/id/OIP.nepaboJStUxL31XKSpKcxQHaHa?w=161&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", price = 0, discount = 0, description = "undefined") {
-    this.save(name, image, price, discount, description);
-    this.name = localStorage.getItem("name");
-    this.price = localStorage.getItem("price");
-    this.discount = localStorage.getItem("discount");
-    this.description = localStorage.getItem("description");
-    this.image = localStorage.getItem("image");
-    this.isBuying = false;
-    localStorage.setItem("isBuying", this.isBuying);
+  constructor(name = "undefined",
+              image = "https://th.bing.com/th/id/OIP.nepaboJStUxL31XKSpKcxQHaHa?w=161&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+              price = 0,
+              discount = 0,
+              description = "undefined") {
 
-
+    this.name = name;
+    this.image = image;
+    this.price = price;
+    this.discount = discount;
+    this.description = description;
   }
 
-  save(name, image, price, discount, description) {
-    localStorage.setItem("name", name);
-    localStorage.setItem("price", price);
-    localStorage.setItem("discount", discount);
-    localStorage.setItem("description", description);
-    localStorage.setItem("image", image);
+  // ==================== СЕРИАЛИЗАЦИЯ ====================
+  toJSON() {
+    return {
+      name: this.name,
+      image: this.image,
+      price: this.price,
+      discount: this.discount,
+      description: this.description,
+      isBuying: this.isBuying,
+      isSelected: this.isSelected
+    };
   }
 
+  static fromJSON(data) {
+    if (!data) return null;
+    const product = new Product(
+      data.name,
+      data.image,
+      data.price,
+      data.discount,
+      data.description
+    );
+    product.isBuying = !!data.isBuying;
+    product.isSelected = !!data.isSelected;
+    return product;
+  }
+
+  // ==================== МЕТОДЫ ====================
   generate() {
-    let products = document.getElementById("products");
-    if (products) {
-      let c = document.createElement("div");
-      let p = document.createElement("p");
-      p.textContent = this.name;
-      p.id = "title";
+    let productsContainer = document.getElementById("products");
+    if (!productsContainer) return;
 
-      let img1 = document.createElement("img");
-      img1.setAttribute("src", this.image);
-      img1.style.width = "60%";
-      img1.style.borderRadius = "5px";
-      let pr = document.createElement("p");
-      pr.textContent = this.price;
-      pr.id = "value";
-      let ds = document.createElement("p");
-      ds.textContent = "-" + this.discount + "%";
-      ds.id = "offer";
-      ds.style.position = "relative";
-      ds.style.top = "-100px";
-      ds.style.left = "50px";
+    let card = document.createElement("div");
+    card.className = "product-card";
 
-      let b = document.createElement("button");
-      b.id = "add";
-      b.textContent = "Buy";
-      c.style.display = "flex";
-      c.style.flexDirection = "column";
-      c.style.justifyContent = "space-between"; // равномерное распределение
-      c.style.alignItems = "center";
-      c.style.width = "200px";
-      c.style.background = "#87DD91";
-      c.style.border = "2px solid  ";
-      c.style.borderColor = "#569C60";
-      c.style.borderRadius = "5px";
-      c.style.marginLeft = "5px";
-      c.style.marginTop = "5px";
-      b.addEventListener("click", () => {
-        window.location.href = "./buyproduct.html";
-        this.isVisible();
-      });
-      c.appendChild(p);
-      c.appendChild(img1);
-      c.appendChild(pr);
-      c.appendChild(ds);
-      c.appendChild(b);
+    let title = document.createElement("p");
+    title.textContent = this.name;
+    title.id = "title";
 
-      products.appendChild(c);
-    }
+    let img = document.createElement("img");
+    img.src = this.image;
+    img.style.width = "60%";
+    img.style.borderRadius = "5px";
 
+    let priceEl = document.createElement("p");
+    priceEl.textContent = this.price;
+    priceEl.id = "value";
 
-    this.save(this.name, this.image, this.price, this.discount, this.description);
+    let discountEl = document.createElement("p");
+    discountEl.textContent = "-" + this.discount + "%";
+    discountEl.id = "offer";
+    discountEl.style.position = "relative";
+    discountEl.style.top = "-100px";
+    discountEl.style.left = "50px";
 
+    let buyBtn = document.createElement("button");
+    buyBtn.id = "add";
+    buyBtn.textContent = "Buy";
+    buyBtn.addEventListener("click", () => {
+      this.isVisible();
+      window.location.href = "./buyproduct.html";
+    });
+
+    // стили карточки
+    card.style.display = "flex";
+    card.style.flexDirection = "column";
+    card.style.justifyContent = "space-between";
+    card.style.alignItems = "center";
+    card.style.width = "200px";
+    card.style.background = "#87DD91";
+    card.style.border = "2px solid #569C60";
+    card.style.borderRadius = "5px";
+    card.style.margin = "5px";
+
+    card.appendChild(title);
+    card.appendChild(img);
+    card.appendChild(priceEl);
+    card.appendChild(discountEl);
+    card.appendChild(buyBtn);
+
+    productsContainer.appendChild(card);
   }
 
   getInfo() {
-    let product = document.getElementsByClassName("card");
-    product[0].innerHTML = "";
-    let c = document.createElement("div");
+    let cardContainer = document.getElementsByClassName("card")[0];
+    if (!cardContainer) return;
 
-    let p = document.getElementsByTagName("h1")[0];
-    p.textContent = this.name;
+    cardContainer.innerHTML = "";
 
-    let img1 = document.createElement("img");
-    img1.setAttribute("src", this.image);
+    let infoDiv = document.createElement("div");
+    infoDiv.id = "information";
 
-    let pr = document.createElement("p");
-    pr.textContent = this.price;
+    let title = document.querySelector("h1") || document.createElement("h1");
+    title.textContent = this.name;
 
-    let ds = document.createElement("p");
-    ds.textContent = "-" + this.discount + "%";
+    let img = document.createElement("img");
+    img.src = this.image;
+    img.id = "imgInfo";let priceEl = document.createElement("p");
+    priceEl.textContent = this.price;
+    priceEl.id = "priceInfo";
 
-    let description = document.createElement("p");
-    description.textContent = this.description;
+    let discountEl = document.createElement("p");
+    discountEl.textContent = "-" + this.discount + "%";
+    discountEl.id = "discountInfo";
 
-    c.id = "information";
-    p.id = "nameInfo";
-    img1.id = "imgInfo";
-    pr.id = "priceInfo";
-    ds.id = "discountInfo";
-    description.id = "descriptionInfo";
+    let descEl = document.createElement("p");
+    descEl.textContent = this.description;
+    descEl.id = "descriptionInfo";
 
-    c.appendChild(img1);
-    c.appendChild(pr);
-    c.appendChild(ds);
-    c.appendChild(description);
+    infoDiv.appendChild(img);
+    infoDiv.appendChild(priceEl);
+    infoDiv.appendChild(discountEl);
+    infoDiv.appendChild(descEl);
 
-    product[0].appendChild(c);
-
-  }
-  isVisible(){
-    this.isBuying=true;
-    localStorage.setItem("isBuying", this.isBuying);
-  }
-  isSelected(){
-    const a=localStorage.getItem("isBuying");
-    let b=false;
-    if(Boolean(a) === true){
-      b= true;
-    }
-    return b;
+    cardContainer.appendChild(infoDiv);
   }
 
+  isVisible() {
+    this.isBuying = true;
+    this.isSelected = true;
+  }
 }

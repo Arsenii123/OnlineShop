@@ -2,15 +2,20 @@ import {Product} from "./entities/Product.js";
 import {Category} from "./entities/Category.js";
 import {Cart} from "./entities/Cart.js";
 const newElements=localStorage.getItem("category_list");
-let newList=JSON.parse(newElements) || [];
+let List=JSON.parse(newElements) || [];
+let newList=[];
 let visible = null;
 let show = null;
-
-for (let a of newList) {
-    if (a.isShowing === true) {
-      visible = new Category(a.name, a.products);
-      break;
-    }
+for(let a of List){
+  let b=new Category(a.name);
+  newList.push(b);
+}
+for (let b of newList) {
+  if (b.isShowing === true) {
+    console.log(b);
+    visible = new Category(b.name);
+    break;
+  }
 }
 
 if (visible) {

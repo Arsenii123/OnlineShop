@@ -1,61 +1,63 @@
-import {Product} from './Product.js';
+import { Product } from './Product.js';
 
 export class Category {
   name;
   products = [];
-  isShowing;
+  isShowing = false;
 
-  constructor(name = "category", ...args) {
-    this.saveCategory(name, ...args);
+  constructor(name = "category") {
+    this.name = name;
+  }
 
-    for (let i = 0; i < args.length; i++) {
-      this.products.push(args[i]);
+  // ==================== СЕРИАЛИЗАЦИЯ ====================
+  toJSON() {
+    return {
+      name: this.name,
+      isShowing: this.isShowing,
+      products: this.products.map(product => product.toJSON())
+    };
+  }
+
+  static fromJSON(data) {
+    if (!data) return null;
+    const category = new Category(data.name);
+    category.isShowing = !!data.isShowing;
+
+    if (data.products && Array.isArray(data.products)) {
+      category.products = data.products.map(p => Product.fromJSON(p));
     }
-    this.name = localStorage.getItem("category_name");
-    if (args.length > 0) {
-      const elements = localStorage.getItem("category_products");
-      this.products = JSON.parse(elements) || [];
-    }
-    this.isShowing=localStorage.getItem("isShowing");
-    localStorage.setItem("isShowing", this.isShowing);
-
+    return category;
   }
 
-  clearCategory() {
-    let c = document.getElementById("products");
-    c.innerHTML = "";
-
-  }
-
-  generateCategory() {
-    for (let p of this.products) {
-
-      const elements = new Product(p.name, p.image, p.price, p.discount, p.description);
-      elements.generate();
-
-
-    }
-  }
-
-  saveCategory(name, ...args) {
-    localStorage.setItem("category_name", name);
-    localStorage.setItem("category_products", JSON.stringify(...args));
-
-
-  }
-
+  // ==================== МЕТОДЫ ====================
   addProduct(product) {
     if (product instanceof Product) {
       this.products.push(product);
-      this.saveCategory(this.name, this.products);
-
     }
-
-  }
-  Visible(){
-    this.isShowing=true;
-    localStorage.setItem("isShowing", this.isShowing);
   }
 
+  Visible() {
+    this.isShowing = true;
+  }
 
+  clearCategory() {
+    const container = document.getElementById("products");
+    if (container) container.innerHTML = "";
+  }
+
+  generateCategory() {
+    for (let product of this.products) {
+      const p = new Product(
+        product.name,
+        product.image,
+        product.price,
+        product.discount,
+        product.description
+      );
+      p.generate();
+    }
+  }
 }
+
+
+

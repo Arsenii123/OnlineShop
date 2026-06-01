@@ -6,7 +6,7 @@ let football = new Category("Football");
 let volleyball = new Category("Volleyball");
 let basketball = new Category("Basketball");
 let hockey = new Category("Hockey");
-export let listCategory = [noCategory, football, volleyball, basketball, hockey];
+export let listCategory=[];
 let product = null;
 for (let i = 0; i < 50; i++) {
   product = new Product("hello");
@@ -14,11 +14,13 @@ for (let i = 0; i < 50; i++) {
   product.generate();
 
 }
-generateList();
-let cart = new Cart();
-cart.addFavorite(football.products[2]);
-cart.saveFavorite();
 
+listCategory.push(noCategory.toJSON());
+listCategory.push(football.toJSON());
+listCategory.push(volleyball.toJSON());
+listCategory.push(basketball.toJSON());
+listCategory.push(hockey.toJSON());
+generateList();
 
 function generateList() {
   for (let i of listCategory) {
@@ -33,8 +35,9 @@ function generateList() {
           a.isShowing = false;
         }
         i.Visible();
-        console.log(listCategory);
         localStorage.setItem("category_list", JSON.stringify(listCategory));
+
+        console.log(listCategory);
         i.clearCategory();
         i.generateCategory();
       });
