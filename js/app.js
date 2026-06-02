@@ -6,6 +6,7 @@ let football = new Category("Football");
 let volleyball = new Category("Volleyball");
 let basketball = new Category("Basketball");
 let hockey = new Category("Hockey");
+let visits=Number(getVisit()) || 0;
 export let listCategory=[];
 let product = null;
 for (let i = 0; i < 50; i++) {
@@ -14,12 +15,15 @@ for (let i = 0; i < 50; i++) {
   product.generate();
 
 }
-
-listCategory.push(noCategory.toJSON());
-listCategory.push(football.toJSON());
-listCategory.push(volleyball.toJSON());
-listCategory.push(basketball.toJSON());
-listCategory.push(hockey.toJSON());
+addEventListener('load',()=>{
+   Visit();
+  }
+);
+listCategory.push(noCategory);
+listCategory.push(football);
+listCategory.push(volleyball);
+listCategory.push(basketball);
+listCategory.push(hockey);
 generateList();
 
 function generateList() {
@@ -47,7 +51,20 @@ function generateList() {
 
 
 }
-
+function Visit(){
+  visits++;
+  document.cookie="visited="+visits;
+}
+function getVisit(){
+  let v=document.cookie.split(";");
+  for(let i of v){
+    i=i.trim();
+    if(i.startsWith("visited=")){
+      return i.substring("visited=".length);
+    }
+  }
+}
+console.log(visits);
 
 
 

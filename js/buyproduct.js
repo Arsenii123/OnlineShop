@@ -1,43 +1,48 @@
 import {Product} from "./entities/Product.js";
 import {Category} from "./entities/Category.js";
 import {Cart} from "./entities/Cart.js";
-const newElements=localStorage.getItem("category_list");
-let List=JSON.parse(newElements) || [];
-let newList=[];
-let visible = null;
-let show = null;
-for(let a of List){
-  let b=new Category(a.name);
-  newList.push(b);
+
+
+// Получаем данные из localStorage
+const savedData = localStorage.getItem("category_list");
+let List = [];
+
+if (savedData) {
+  const parsed = JSON.parse(savedData);
+
+  List = parsed.map(catData => Category.fromJSON(catData));
+  console.log(List);
 }
-for (let b of newList) {
-  if (b.isShowing === true) {
-    console.log(b);
-    visible = new Category(b.name);
+
+let visible = null;
+let selectedProduct = null;
+
+for (let category of List) {
+  if (category.isShowing) {
+    visible = category;
     break;
   }
 }
 
 if (visible) {
-  console.log(visible.products);
-    for (let a of visible.products) {
-      console.log(a.isSelected);
-       if(a.isSelected){
-         show = new Product(a.name, a.image, a.price, a.discount, a.description);
-         show.getInfo();
-         console.log(show);
-         a.isBuying = false;
-         break;
-       }
-
-      }
-
-
+  // Ищем выбранный товар
+  for (let product of visible.products) {
+    if (product.isBuying===true) {
+      selectedProduct = product;
+      // Можно дополнительно вызвать getInfo() если нужно
+      selectedProduct.getInfo();
+      break;
+    }
+  }
 }
-let toCart=document.getElementById("toCart");
-toCart.addEventListener("click",()=>{
-  let cart=new Cart();
-  cart.addFavorite(show);
-  cart.saveFavorite();
-})
 
+
+const toCart = document.getElementById("toCart");
+toCart?.addEventListener("click", () => {
+  if (selectedProduct) {
+    const cart = new Cart();
+    cart.addFavorite(selectedProduct);
+    cart.saveFavorite();
+    alert("Товар добавлен в корзину!"); // для теста
+  }
+});

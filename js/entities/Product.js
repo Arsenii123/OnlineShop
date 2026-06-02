@@ -5,7 +5,6 @@ export class Product {
   discount;
   description;
   isBuying = false;
-  isSelected = false;
 
   constructor(name = "undefined",
               image = "https://th.bing.com/th/id/OIP.nepaboJStUxL31XKSpKcxQHaHa?w=161&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
@@ -29,7 +28,7 @@ export class Product {
       discount: this.discount,
       description: this.description,
       isBuying: this.isBuying,
-      isSelected: this.isSelected
+
     };
   }
 
@@ -43,7 +42,6 @@ export class Product {
       data.description
     );
     product.isBuying = !!data.isBuying;
-    product.isSelected = !!data.isSelected;
     return product;
   }
 
@@ -139,6 +137,5 @@ export class Product {
 
   isVisible() {
     this.isBuying = true;
-    this.isSelected = true;
   }
 }
