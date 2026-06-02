@@ -27,6 +27,7 @@ for (let category of List) {
 if (visible) {
   // Ищем выбранный товар
   for (let product of visible.products) {
+    console.log(product);
     if (product.isBuying===true) {
       selectedProduct = product;
       // Можно дополнительно вызвать getInfo() если нужно
@@ -44,5 +45,6 @@ toCart?.addEventListener("click", () => {
     cart.addFavorite(selectedProduct);
     cart.saveFavorite();
     alert("Товар добавлен в корзину!"); // для теста
+    window.location.href = "./index.html";
   }
 });

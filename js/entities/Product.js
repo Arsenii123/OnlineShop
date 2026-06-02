@@ -4,7 +4,7 @@ export class Product {
   price;
   discount;
   description;
-  isBuying = false;
+  isBuying ;
 
   constructor(name = "undefined",
               image = "https://th.bing.com/th/id/OIP.nepaboJStUxL31XKSpKcxQHaHa?w=161&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
@@ -77,8 +77,9 @@ export class Product {
     buyBtn.id = "add";
     buyBtn.textContent = "Buy";
     buyBtn.addEventListener("click", () => {
-      this.isVisible();
       window.location.href = "./buyproduct.html";
+      this.isBuying = true;
+      this.toJSON();
     });
 
     // стили карточки
@@ -134,8 +135,39 @@ export class Product {
 
     cardContainer.appendChild(infoDiv);
   }
+  getFavourites() {
+    let c = document.getElementById("favourite_cards");
+    if (!c) return;
 
-  isVisible() {
-    this.isBuying = true;
+    c.innerHTML = "";
+    let cardF = document.createElement("div");
+    cardF.className = "product-card";
+
+    let titleF = document.createElement("p");
+    titleF.textContent = this.name;
+    titleF.id = "title";
+
+    let imgF = document.createElement("img");
+    imgF.src = this.image;
+    imgF.style.width = "60%";
+    imgF.style.borderRadius = "5px";
+
+    let priceElF = document.createElement("p");
+    priceElF.textContent = this.price;
+    priceElF.id = "value";
+
+    let discountElF = document.createElement("p");
+    discountElF.textContent = "-" + this.discount + "%";
+    discountElF.id = "offer";
+    discountElF.style.position = "relative";
+    discountElF.style.top = "-100px";
+    discountElF.style.left = "50px";
+    cardF.appendChild(titleF);
+    cardF.appendChild(imgF);
+    cardF.appendChild(priceElF);
+    cardF.appendChild(discountElF);
+
+    c.appendChild(cardF);
   }
 }
+

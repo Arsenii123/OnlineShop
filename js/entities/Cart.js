@@ -24,6 +24,14 @@ export class Cart {
     const cart = new Cart();
     const parsed = JSON.parse(saved);
     cart.products = parsed.map(p => Product.fromJSON(p));
+   for (let product of cart.products) {
+     product.getFavourites();
+   }
     return cart;
+  }
+  removeFavorite(product) {
+    if (product instanceof Product) {
+      this.products.remove(product);
+    }
   }
 }
