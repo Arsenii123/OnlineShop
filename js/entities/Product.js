@@ -155,9 +155,6 @@ export class Product {
 
     let imgF = document.createElement("img");
     imgF.src = this.image;
-    imgF.style.width = "60%";
-    imgF.style.borderRadius = "5px";
-
     let priceElF = document.createElement("p");
     priceElF.textContent = this.price;
     priceElF.id = "value";
@@ -165,13 +162,24 @@ export class Product {
     let discountElF = document.createElement("p");
     discountElF.textContent = "-" + this.discount + "%";
     discountElF.id = "offer";
-    discountElF.style.position = "relative";
-    discountElF.style.top = "-100px";
-    discountElF.style.left = "50px";
+    let buyBtnF = document.createElement("button");
+    buyBtnF.id = "add";
+    buyBtnF.textContent = "Buy";
+    buyBtnF.addEventListener("click", () => {
+      this.isBuying = true;
+
+      // сохраняем только выбранный продукт
+      localStorage.setItem("selectedProduct", JSON.stringify(this));
+
+      // переходим на страницу покупки
+      window.location.href = "./buyproduct.html";
+    });
+
     cardF.appendChild(titleF);
     cardF.appendChild(imgF);
     cardF.appendChild(priceElF);
     cardF.appendChild(discountElF);
+    cardF.appendChild(buyBtnF);
 
     c.appendChild(cardF);
   }

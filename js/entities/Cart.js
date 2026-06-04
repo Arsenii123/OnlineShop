@@ -1,4 +1,4 @@
-import { Product } from "./Product.js";
+import {Product} from "./Product.js";
 
 export class Cart {
   products = [];
@@ -10,13 +10,10 @@ export class Cart {
   }
 
   saveFavorite() {
+    const right=this.products.filter(p=>p!==null);
     localStorage.setItem("cart", JSON.stringify(
-      this.products.map(p => {
-          if (p !== null) {
-            p.toJSON()
-          }
-
-        }
+      right.map(p =>
+        p.toJSON()
       )
     ));
     console.log("Корзина сохранена в localStorage");
@@ -29,12 +26,15 @@ export class Cart {
 
     const cart = new Cart();
     const parsed = JSON.parse(saved);
-    cart.products = parsed.map(p => Product.fromJSON(p));
+    cart.products = parsed
+      .filter(p => p !== null)
+      .map(p => Product.fromJSON(p));
     return cart;
   }
+
   removeFavorite(product) {
     if (product instanceof Product) {
-      this.products.remove(product);
+      this.products.filter(p=>p.toJSON()!==product.toJSON());
     }
   }
 }

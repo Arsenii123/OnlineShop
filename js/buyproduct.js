@@ -13,7 +13,7 @@ if (raw) {
 
 const toCart = document.getElementById("toCart");
 toCart?.addEventListener("click", () => {
-  if (selectedProduct) {
+  if (selectedProduct!==null) {
     console.log(selectedProduct);
     const cart = Cart.loadCart();
     cart.addFavorite(selectedProduct);

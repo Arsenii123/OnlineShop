@@ -14,12 +14,12 @@ for (let i = 0; i < 50; i++) {
   product.generate();
 
 }
-// for (let i = 0; i < 50; i++) {
-//   product = new Product("bye");
-//   volleyball.addProduct(product);
-//   product.generate();
-//
-// }
+for (let i = 0; i < 50; i++) {
+  product = new Product("bye");
+  volleyball.addProduct(product);
+  product.generate();
+
+}
 addEventListener('load',()=>{
    Visit();
   }
