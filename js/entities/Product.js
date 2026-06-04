@@ -17,6 +17,7 @@ export class Product {
     this.price = price;
     this.discount = discount;
     this.description = description;
+
   }
 
   // ==================== СЕРИАЛИЗАЦИЯ ====================
@@ -77,10 +78,15 @@ export class Product {
     buyBtn.id = "add";
     buyBtn.textContent = "Buy";
     buyBtn.addEventListener("click", () => {
-      window.location.href = "./buyproduct.html";
       this.isBuying = true;
-      this.toJSON();
+
+      // сохраняем только выбранный продукт
+      localStorage.setItem("selectedProduct", JSON.stringify(this));
+
+      // переходим на страницу покупки
+      window.location.href = "./buyproduct.html";
     });
+
 
     // стили карточки
     card.style.display = "flex";
@@ -169,5 +175,6 @@ export class Product {
 
     c.appendChild(cardF);
   }
+
 }
 

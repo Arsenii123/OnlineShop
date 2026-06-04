@@ -14,7 +14,12 @@ for (let i = 0; i < 50; i++) {
   product.generate();
 
 }
-
+// for (let i = 0; i < 50; i++) {
+//   product = new Product("bye");
+//   volleyball.addProduct(product);
+//   product.generate();
+//
+// }
 addEventListener('load',()=>{
    Visit();
   }
@@ -27,6 +32,10 @@ listCategory.push(hockey);
 noCategory.clearCategory();
 noCategory.generateCategory();
 generateList();
+let goToCart=document.getElementById("cart");
+goToCart.addEventListener('click',()=>{
+  window.location.href="./pagecart.html";
+})
 
 function generateList() {
   for (let i of listCategory) {
@@ -41,7 +50,6 @@ function generateList() {
           a.isShowing = false;
         }
         i.Visible();
-        localStorage.setItem("category_list", JSON.stringify(listCategory));
         console.log(listCategory);
         i.clearCategory();
         i.generateCategory();

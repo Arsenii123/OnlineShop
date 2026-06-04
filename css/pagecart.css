@@ -146,80 +146,144 @@ footer p {
   opacity: 0.95;
 }
 
-/* Адаптивність */
-@media (max-width: 480px) {
-  header {
-    font-size: 2.2rem;
-    padding: 20px 0;
-  }
+/* ================= КАРТОЧКИ УЛЮБЛЕНИХ - ОНОВЛЕНО ================= */
 
-  main img {
-    width: 220px;
-    height: 220px;
-  }
+#favourite_cards {
+  max-width: 1300px;
+  margin: 40px auto;
+  padding: 0 20px;
 }
-#products{
+
+#favourite_cards h2 {
+  text-align: center;
+  color: #45983C;
+  font-size: 2.5rem;
+  margin-bottom: 45px;
+}
+
+/* Контейнер */
+.cards-container {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  width: 1000px;
+  gap: 32px;
   justify-content: center;
 }
-#title{
-  color: #084308;
-  font-size: 40px;
-  font-style: italic;
-}
-#value{
-  color: #084308;
-  font-size: 30px;
-  font-style: italic;
-}
-#offer{
-  color: #e33a3a;
-  font-size: 15px;
-  font-style: italic;
-}
-#add{
-  font-family: "Jua", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  width:100px;
-  color: #063306;
-  background-color: #51A25D;
-  border-radius: 20px;
-  position: relative;
-  top: -45px;
-  height:20px;
-  border: none;
-}
-#cart2{
-  width:50px;
-  height:50px;
-  position:relative;;
-  left:50px;
 
-}
-/* Анимация карточек */
+/* Картка */
 .product-card {
+  background: #87ef87;        /* М'який світло-зелений фон */
+  width: 290px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  position: relative;
   opacity: 0;
   transform: translateY(30px);
-  animation: cardAppear 0.6s forwards;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: cardAppear 0.7s forwards;
+  border: 1px solid #88f188;   /* Легка зелена обводка */
 }
 
-/* Появление карточек по очереди */
-.product-card:nth-child(1) { animation-delay: 0.1s; }
-.product-card:nth-child(2) { animation-delay: 0.2s; }
-.product-card:nth-child(3) { animation-delay: 0.3s; }
-.product-card:nth-child(4) { animation-delay: 0.4s; }
-.product-card:nth-child(5) { animation-delay: 0.5s; }
+.product-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 22px 45px rgba(69, 152, 60, 0.22);
+}
 
-/* Ключевая анимация появления */
 @keyframes cardAppear {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Зображення — зменшив висоту */
+.product-card img {
+  width: 100%;
+  height: 210px;           /* Зменшено, щоб вся картинка була видно */
+  object-fit: contain;     /* Важливо! Змінено з cover на contain */
+  background: #ffffff;
+  padding: 10px;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.04);
+}
+
+/* Скидка */
+#offer {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #e63946;
+  color: white;
+  padding: 6px 15px;
+  border-radius: 30px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
+  z-index: 5;
+}
+
+/* Назва */
+#title {
+  font-size: 1.4rem;
+  color: #1e6b2a;
+  font-weight: 700;
+  text-align: center;
+  padding: 14px 15px 8px;
+  margin: 0;
+}
+
+/* Ціна */
+#value {
+  font-size: 1.7rem;
+  color: #45983C;
+  font-weight: 800;
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+/* Кнопка */
+#add {
+  display: block;
+  margin: 8px auto 18px;
+  background: #45983C;
+  color: white;
+  border: none;
+  padding: 13px 40px;
+  border-radius: 50px;
+  font-family: "Jua", sans-serif;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 5px 15px rgba(69, 152, 60, 0.3);
+}
+
+#add:hover {
+  background: #367a2e;
+  transform: scale(1.07);
+  box-shadow: 0 8px 20px rgba(69, 152, 60, 0.4);
+}
+
+/* ================= АДАПТИВНІСТЬ ================= */
+
+@media (max-width: 1024px) {
+  .product-card { width: 275px; }
+}
+
+@media (max-width: 768px) {
+  .product-card { width: 260px; }
+  .product-card img { height: 195px; }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    width: 100%;
+    max-width: 290px;
+  }
+  #favourite_cards h2 {
+    font-size: 2.1rem;
   }
 }
 

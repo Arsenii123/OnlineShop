@@ -11,7 +11,13 @@ export class Cart {
 
   saveFavorite() {
     localStorage.setItem("cart", JSON.stringify(
-      this.products.map(p => p.toJSON())
+      this.products.map(p => {
+          if (p !== null) {
+            p.toJSON()
+          }
+
+        }
+      )
     ));
     console.log("Корзина сохранена в localStorage");
   }
@@ -24,9 +30,6 @@ export class Cart {
     const cart = new Cart();
     const parsed = JSON.parse(saved);
     cart.products = parsed.map(p => Product.fromJSON(p));
-   for (let product of cart.products) {
-     product.getFavourites();
-   }
     return cart;
   }
   removeFavorite(product) {
