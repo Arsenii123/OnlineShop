@@ -6,15 +6,15 @@
   <link rel="stylesheet" href="css/buyproduct.css">
 </head>
 <body>
-<main id="title">
-<h1></h1>
+<header></header>
+<main id="n">
 </main>
 <section >
   <div class="card">
 
   </div>
   <div>
-    <form  method="post" onsubmit="order()">
+    <form  method="post" >
       <label for="email">Email</label>
       <input
              type="email"
@@ -22,7 +22,7 @@
              name="email"
              placeholder="Print your email address..."
              required
-             pattern="^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z]{2,}$"
+             pattern="^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+/.[a-zA-Z]{2,}$"
              oninput="this.setCustomValidity(this.validity.valid
              ?''
              : 'Your email address is required written correctly'
@@ -97,7 +97,7 @@
         <option >10</option>
         <option value=">10">>10</option>
       </select>
-      <input type="submit" value="Submit">
+      <input type="submit" value="Submit" id="isOrder">
       <input type="reset" value="Reset">
       <button id="toCart">
         <img src="./img/1680641020_pictures-pibig-info-p-telezhka-raskraska-pinterest-58.png" alt="Cart" class="cart-icon">

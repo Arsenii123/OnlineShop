@@ -32,9 +32,12 @@ export class Cart {
     return cart;
   }
 
-  removeFavorite(product) {
-    if (product instanceof Product) {
-      this.products.filter(p=>p.toJSON()!==product.toJSON());
-    }
+  removeFavorite() {
+    let choice=Number(prompt("Enter number of products to delete:"));
+    this.products.splice(choice, 1);
+    this.saveFavorite();
+    window.location.reload();
+
+
   }
 }

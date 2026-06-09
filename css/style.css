@@ -1,193 +1,234 @@
-*{
-  box-sizing: border-box;
+:root{
+  --green:#45983C;
+  --green-dark:#2E8B2A;
+  --radius:14px;
+  --shadow-sm:0 4px 12px rgba(8,67,8,.08);
+  --shadow-md:0 10px 28px rgba(8,67,8,.14);
+  --transition:.3s ease;
+  --header-h:110px;
 }
-body{
-  font-family: "Jua", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  background-color: #9AF8A5;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:"Jua",sans-serif;
+  background-color:#9AF8A5;          /* твой цвет */
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
+
+/* ---------- HEADER (без sticky, без фона) ---------- */
 header{
-  display: flex;
-  text-align: center;
+  width:100%;
+  text-align:center;
+  padding:20px 0 6px;
+  background:transparent;
+  box-shadow:none;
 }
 h1{
   font-size:70px;
-  color:#45983C;
+  color:var(--green);
+  letter-spacing:.5px;
 }
+
+/* ---------- MAIN (basket / search по центру) ---------- */
 main{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100px;
-  align-items: center;
-}
-.c{
-  width:50px;
-  height:50px;
-}
-#cart{
-  position:absolute;
-  top:auto;
-  left:800px;
-  display: flex;
-  flex-direction: row;
-  height:50px;
-  width:130px;
-  background-color:#CEFF91;
-  border-radius: 5px;
-}
-#cart p{
-  position:relative;
-  left:10px;
-}
-.filter{
-  position: relative;
-  left:1350px;
-  top:-3px;
-}
-#Category{
-  position: absolute;
-  top:0px;
-  left: 0px;
+  width:100%;
   display:flex;
+  flex-wrap:wrap;
+  justify-content:center;            /* центр */
+  align-items:center;
+  gap:18px;
+  padding:14px 24px;
+  position:static;                   /* убираем left:900px */
 }
-h2{
-  color:#0C8B2E;
-  font-size:50px;
+
+.c{
+  width:54px;height:54px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:transform var(--transition);
+}
+.c:hover{transform:scale(1.1)}
+.c img{width:32px;height:32px}
+
+/* поиск */
+#filter-in{
+  width:280px;height:42px;
+  border-radius:10px;
+  border:1px solid rgba(8,67,8,.15);
+  background:rgba(255,255,255,.9);
+  padding:0 14px;
+  font-family:inherit;
+  outline:none;
+  transition:box-shadow var(--transition);
+}
+#filter-in:focus{box-shadow:0 0 0 3px rgba(69,152,60,.25)}
+
+/* фильтр — БЕЗ круга */
+#filter{
+  background:transparent;
+  border:none;
+  padding:0;
+  width:auto;height:auto;
+  cursor:pointer;
+}
+#filter img{width:32px;height:32px}
+
+/* аккаунт — С кругом */
+img[alt="account"]{
+  width:44px;height:44px;
+  border-radius:50%;
+  background:rgba(255,255,255,.85);
+  box-shadow:var(--shadow-sm);
+  padding:6px;
+  cursor:pointer;
+  transition:transform var(--transition);
+}
+img[alt="account"]:hover{transform:scale(1.08)}
+
+/* ---------- CATEGORY (sticky sidebar) ---------- */
+#Category{
+  position:sticky;
+  top:20px;
+  float:left;
+  margin:20px 0 20px 24px;
+  z-index:10;
 }
 #out{
-  width:400px;
-  background-color:#62CC6F;
-  height:800px;
-  display:flex;
-  justify-content: space-around;
+  background:rgba(255,255,255,.55);
+  backdrop-filter:blur(8px);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-md);
+  padding:16px;
+  max-height:calc(100vh - 60px);
+  overflow-y:auto;
+}
+#in{display:flex;flex-direction:column;gap:10px}
 
-}
-#in{
-  width:300px;
-  background-color:#51B95D;
-  height:100%;
-  border-radius: 20px;
-  text-align: center;
-}
-footer{
-  display: flex;
-  flex-direction: column;
-  background-color: #51A25D;
-  width: 110%;
-  height: 110%;
-  text-align:center;
-}
-#pages{
-  text-align: center;
-  width:100px;
-  height: 30px;
-  background-color: #78DB83;
-  border-radius: 20px;
-}
+/* ---------- PRODUCTS (твоя оригинальная карточка) ---------- */
 #products{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 1000px;
-  justify-content: center;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:24px;
+  padding:24px;
+  width:100%;
 }
+
+.product-card{
+  position:relative;
+  width:230px;
+  height:330px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:var(--shadow-sm);
+  padding:12px;
+  transition:transform var(--transition),box-shadow var(--transition);
+  animation:cardAppear .5s ease both;
+}
+.product-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow-md);
+}
+.product-card img{
+  width:100%;
+  height:160px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto;
+}
+
+/* позиции элементов как у тебя было */
 #title{
-  color: #084308;
-  font-size: 40px;
-  font-style: italic;
+  font-size:18px;
+  color:#222;
+  margin-top:10px;
+  text-align:left;
 }
 #value{
-  color: #084308;
-  font-size: 30px;
-  font-style: italic;
+  font-size:22px;
+  color:var(--green);
+  font-weight:bold;
+  margin-top:8px;
 }
 #offer{
-  color: #e33a3a;
-  font-size: 15px;
-  font-style: italic;
+  position:absolute;
+  top:10px;left:10px;
+  background:#ff4444;
+  color:#fff;
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:13px;
+  transition:transform var(--transition);
 }
+.product-card:hover #offer{transform:scale(1.15)}
+
 #add{
-  font-family: "Jua", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  width:100px;
-  color: #063306;
-  background-color: #51A25D;
-  border-radius: 20px;
-  position: relative;
-  top: -45px;
-  height:20px;
-  border: none;
+  position:absolute;
+  bottom:12px;right:12px;
+  background:var(--green);
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:transform var(--transition),background var(--transition);
 }
+#add:hover{transform:scale(1.08);background:var(--green-dark)}
+
 #cart2{
-  width:50px;
-  height:50px;
-  position:relative;;
-  left:50px;
-
-}
-/* Анимация карточек */
-.product-card {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: cardAppear 0.6s forwards;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position:absolute;
+  bottom:14px;left:14px;
+  width:26px;height:26px;
 }
 
-/* Появление карточек по очереди */
-.product-card:nth-child(1) { animation-delay: 0.1s; }
-.product-card:nth-child(2) { animation-delay: 0.2s; }
-.product-card:nth-child(3) { animation-delay: 0.3s; }
-.product-card:nth-child(4) { animation-delay: 0.4s; }
-.product-card:nth-child(5) { animation-delay: 0.5s; }
+/* ---------- PAGINATION ---------- */
+#pages{
+  display:flex;justify-content:center;gap:8px;
+  padding:20px;
+}
+#pages button{
+  background:var(--green);color:#fff;border:none;
+  padding:8px 14px;border-radius:8px;cursor:pointer;
+  transition:transform var(--transition);
+}
+#pages button:hover{transform:translateY(-2px)}
 
-/* Ключевая анимация появления */
-@keyframes cardAppear {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ---------- FOOTER ---------- */
+footer{
+  width:100%;
+  text-align:center;
+  padding:20px;
+  color:#1f4d1f;
 }
 
-/* Hover анимация */
-.product-card:hover {
-  transform: translateY(-15px) scale(1.04);
-  box-shadow: 0 20px 40px rgba(69, 152, 60, 0.35);
+/* ---------- ANIMATIONS ---------- */
+@keyframes cardAppear{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* Анимация для изображения внутри карточки */
-.product-card img {
-  transition: transform 0.5s ease;
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:768px){
+  h1{font-size:48px}
+  #Category{position:static;float:none;margin:16px auto;width:90%}
+  #filter-in{width:200px}
+  main{padding:10px}
+}
+@media (max-width:480px){
+  h1{font-size:36px}
+  #filter-in{width:160px}
+  .product-card{width:90%}
 }
 
-.product-card:hover img {
-  transform: scale(1.08);
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
 }
 
-/* Анимация кнопки "Buy" */
-#add {
-  transition: all 0.3s ease;
-}
-
-#add:hover {
-  transform: scale(1.08);
-  background-color: #2E8B2A;
-}
-
-/* Лёгкая анимация для скидки */
-#offer {
-  transition: transform 0.3s ease;
-}
-
-.product-card:hover #offer {
-  transform: scale(1.15);
-}
 
 
 

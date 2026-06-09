@@ -113,12 +113,14 @@ export class Product {
     if (!cardContainer) return;
 
     cardContainer.innerHTML = "";
+    let m=document.getElementById("n");
+    let title = document.createElement("h1");
+    title.textContent = this.name;
+    m.appendChild(title);
 
     let infoDiv = document.createElement("div");
     infoDiv.id = "information";
 
-    let title = document.querySelector("h1") || document.createElement("h1");
-    title.textContent = this.name;
 
     let img = document.createElement("img");
     img.src = this.image;
@@ -145,7 +147,7 @@ export class Product {
     let c = document.getElementById("favourite_cards");
     if (!c) return;
 
-    c.innerHTML = "";
+
     let cardF = document.createElement("div");
     cardF.className = "product-card";
 
@@ -180,7 +182,7 @@ export class Product {
     cardF.appendChild(priceElF);
     cardF.appendChild(discountElF);
     cardF.appendChild(buyBtnF);
-
+    // c.innerHTML = "";
     c.appendChild(cardF);
   }
 

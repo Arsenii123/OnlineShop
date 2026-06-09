@@ -1,5 +1,6 @@
 import {Product} from "./entities/Product.js";
 import {Cart} from "./entities/Cart.js";
+
 const raw = localStorage.getItem("selectedProduct");
 let selectedProduct;
 if (raw) {
@@ -13,7 +14,7 @@ if (raw) {
 
 const toCart = document.getElementById("toCart");
 toCart?.addEventListener("click", () => {
-  if (selectedProduct!==null) {
+  if (selectedProduct !== null) {
     console.log(selectedProduct);
     const cart = Cart.loadCart();
     cart.addFavorite(selectedProduct);
@@ -22,40 +23,54 @@ toCart?.addEventListener("click", () => {
     window.location.href = "./index.html";
   }
 });
-function order(){
-  return new Promise((resolve,reject) => {
+let r = document.getElementById("isOrder");
+r.addEventListener("click", () => {
+  order();
+})
+
+function order() {
+  return new Promise((resolve, reject) => {
     console.log("making order...");
-    setTimeout(()=>{
-    let chance = Math.random() * 100; // 0-100 - емуляція роботи з БД
-    if (chance > 10) { // success
-      resolve("order success");
-    } else {
-      reject("something went wrong!");
-    }
-
-  },1000)}).then((resolve,reject)=> {
-    console.log("processing order...");
     setTimeout(() => {
       let chance = Math.random() * 100; // 0-100 - емуляція роботи з БД
-      if (chance > 20) { // success
-        resolve("process success");
+      if (chance > 10) { // success
+        resolve("order success");
       } else {
-        reject("something went wrong while processing order!");
+        reject("something went wrong!");
       }
-    },2000)
 
-  }).then((resolve,reject)=>{
-    console.log("delivering order...");
-    setTimeout(() => {
-      let chance = Math.random() * 100; // 0-100 - емуляція роботи з БД
-      if (chance > 30) { // success
-        resolve("deliver success");
+    }, 1000)
+  }).then(result => {
+    console.log(result);
+    return new Promise((resolve, reject) => {
+      console.log("processing order...");
+      setTimeout(() => {
+        let chance = Math.random() * 100; // 0-100 - емуляція роботи з БД
+        if (chance > 20) { // success
+          resolve("process success");
+        } else {
+          reject("something went wrong while processing order!");
+        }
+      }, 2000)
+    });
+  }).then(result => {
+    console.log(result);
+    return new Promise((resolve, reject) => {
+      console.log("delivering order...");
+      setTimeout(() => {
+        let chance = Math.random() * 100; // 0-100 - емуляція роботи з БД
+        if (chance > 30) { // success
+          resolve("deliver success");
+        } else {
+          reject("something went wrong while delivering order!");
+        }
         window.location.href = "./index.html";
-      } else {
-        reject("something went wrong while delivering order!");
-      }
-    },3000)
-  }).catch(()=>{
+      }, 3000)
+    });
+
+  }).catch(() => {
     window.location.href = "./index.html";
-  })
+  });
+
+
 }

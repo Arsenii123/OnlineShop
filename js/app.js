@@ -1,6 +1,7 @@
 import {Product} from "./entities/Product.js";
 import {Category} from "./entities/Category.js";
 let noCategory = new Category("no_category");
+noCategory.isShowing = true;
 let football = new Category("Football");
 let volleyball = new Category("Volleyball");
 let basketball = new Category("Basketball");
@@ -13,6 +14,11 @@ for (let i = 0; i < 50; i++) {
   football.addProduct(product);
   product.generate();
 
+}
+for (let i = 0; i < 5; i++) {
+  product = new Product("good","",13);
+  football.addProduct(product);
+  product.generate();
 }
 for (let i = 0; i < 50; i++) {
   product = new Product("bye");
@@ -36,6 +42,14 @@ let goToCart=document.getElementById("cart");
 goToCart.addEventListener('click',()=>{
   window.location.href="./pagecart.html";
 })
+let f=document.getElementsByClassName("filter");
+f[0].addEventListener('click',()=>{
+  filterList();
+});
+let a=document.getElementById("a-user");
+a.addEventListener('click',()=>{
+  window.location.href="./accountpage.html";
+});
 
 function generateList() {
   for (let i of listCategory) {
@@ -70,6 +84,23 @@ function getVisit(){
     i=i.trim();
     if(i.startsWith("visited=")){
       return i.substring("visited=".length);
+    }
+  }
+}
+function filterList(){
+  let request=String(document.getElementById("filter-in").value);
+  for(let i of listCategory){
+    if(i.isShowing===true){
+      let c=new Category();
+      c.products=i.products.filter(p=>p.name.startsWith(request) || p.name===request);
+      if(c.products.length>0){
+        c.clearCategory();
+        c.generateCategory();
+      }
+      else{
+        alert("Product Not Found!");
+      }
+
     }
   }
 }

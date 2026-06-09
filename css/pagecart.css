@@ -152,6 +152,11 @@ footer p {
   max-width: 1300px;
   margin: 40px auto;
   padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
 }
 
 #favourite_cards h2 {
@@ -181,6 +186,7 @@ footer p {
   opacity: 0;
   transform: translateY(30px);
   animation: cardAppear 0.7s forwards;
+  margin: 5px;
 }
 
 .product-card:hover {

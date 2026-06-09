@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="css/registration.css">
+</head>
+<body>
+<header>Registration</header>
+<section id="registration">
+  <p>Sing up</p>
+  <form method="post"  id="singUp">
+    <label for="username">Name</label>
+    <input type="text" id="username" name="username" placeholder="Username...">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="Email..."
+      pattern="^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z]{2,}$"
+      oninput="this.setCustomValidity(this.validity.valid
+            ?''
+            : 'Your email address is required written correctly'
+
+            )">
+    <label for="password">Password</label>
+    <input type="password"
+           id="password"
+           name="password"
+           placeholder="Password..."
+           minlength="6"
+           maxlength="25"
+           oninput="this.setCustomValidity('')"
+           oninvalid="this.setCustomValidity('6-25 length!!!')"
+    >
+    <input type="submit" value="Register" id = "register">
+    <input type="reset" value="Reset">
+
+  </form>
+  <img src="./img/69524.png" alt="home" id="toHome">
+
+</section>
+<footer>
+
+
+  <p>Phone:+3407074274247247382742</p>
+  <p>Instagram: fdkhef</p>
+  <p>Telegram channel: jdklfjlja</p>
+</footer>
+<script type="module" src="js/registration.js"></script>
+</body>
+</html>
