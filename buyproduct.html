@@ -14,7 +14,7 @@
 
   </div>
   <div>
-    <form  method="post" >
+    <form  method="post" id="makeOrder">
       <label for="email">Email</label>
       <input
              type="email"
@@ -22,12 +22,9 @@
              name="email"
              placeholder="Print your email address..."
              required
-             pattern="^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+/.[a-zA-Z]{2,}$"
-             oninput="this.setCustomValidity(this.validity.valid
-             ?''
-             : 'Your email address is required written correctly'
-
-             )" >
+             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+             oninvalid="this.setCustomValidity('Введите корректный email, например: user@mail.com')"
+             oninput="this.setCustomValidity('')">
       <label for="password">Password</label>
       <input
       type="password"
@@ -37,15 +34,14 @@
       required
       minlength="6"
       maxlength="25"
-      oninput="this.setCustomValidity(this.validity.valid
-      ? ''
-      : '6-25 characters long')">
-      <label for="adress">Adress</label>
+      oninvalid="this.setCustomValidity('Пароль должен быть от 6 до 25 символов')"
+      oninput="this.setCustomValidity('')">
+      <label for="address">Address</label>
       <input
       type="text"
-      id="adress"
-      name="adress"
-      placeholder="Enter your adress..."
+      id="address"
+      name="address"
+      placeholder="Enter your address..."
       required
       >
       <label for="city">City</label>
